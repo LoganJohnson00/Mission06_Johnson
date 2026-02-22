@@ -1,15 +1,23 @@
 @{
     ViewData["Title"] = "Enter a Movie";
 }
-@model Mission6Assignment.Models.Collection
+@model Mission6Assignment.Models.Movie
 @* Or @model Application *@
 
-<h1>Dating Application</h1>
+<h1>Enter a movie</h1>
 
 <form method="post">
     
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category"/>
+    <input type="hidden" asp-for="MovieId"/>
+    
+    <label asp-for="CategoryId">Category:</label>
+    <select asp-for="CategoryId">
+        <option value="">Select Category:</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select>
     <br/>
     <label asp-for="Title">Title:</label>
     <input asp-for="Title"/>
@@ -41,7 +49,9 @@
     <input asp-for="Notes" maxlength="25"/>
     <span asp-validation-for="Notes" style="color:red"></span>
     
-    <button type="submit">Submit the new movie.</button>
+    <button type="submit">Submit the movie.</button>
+    
+    <div asp-validation-summary="All"></div>
     
     
 </form>
